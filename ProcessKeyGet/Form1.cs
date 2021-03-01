@@ -1,0 +1,92 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Management;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace ProcessKeyGet
+{
+    public partial class Form1 : Form
+    {
+        public List<Process> processes = new List<Process>();
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            btnCopy.Enabled =! btnCopy.Enabled;
+            Process[] processlist = Process.GetProcesses();
+            for (int i = 0; i < processlist.Length; i++)
+                processes.Add(processlist[i]);
+
+            for (int i = 0; i < processes.Count; i++)
+            {
+                label1.Text = i.ToString();
+                Process process = processes[i];
+                listBox1.Items.Add(process.ProcessName);
+                if (process.ProcessName == "PointBlank")
+                {
+                    MessageBox.Show("Point Blank found successfully.", "ProcessKeyGet", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    OnlyPb();
+                    break;
+                }
+            }
+            label1.Text = "-";
+        }
+        private void OnlyPb()
+        {
+            for (int j = listBox1.Items.Count - 1; j > -1; j--)
+            {
+                bool seach = listBox1.Items[j].ToString() == "PointBlank";
+                if (!seach)
+                {
+                    listBox1.Items.RemoveAt(j);
+                    listBox1.Refresh();
+                }
+            }
+            for (int j = processes.Count - 1; j > -1; j--)
+            {
+                Process process = processes[j];
+                if (process.ProcessName != "PointBlank") //PointBlank
+                {
+                    processes.RemoveAt(j);
+                }
+            }
+            btnCopy.Enabled = !btnCopy.Enabled;
+        }
+        private static string GetCommandLine(int id)
+        {
+            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + id))
+            using (ManagementObjectCollection objects = searcher.Get())
+            {
+                return objects.Cast<ManagementBaseObject>().SingleOrDefault()?["CommandLine"]?.ToString();
+            }
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(processes.Count.ToString());
+            for (int i = 0; i < processes.Count; i++)
+            {
+                Process process = processes[i];
+                Clipboard.SetText(GetCommandLine(process.Id));
+                MessageBox.Show("Launcher Key Successfully copied.", "ProcessKeyGet", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        public string OnlyNumber(string str) => new Regex(@"[^\d]").Replace(str, "");
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Guide to help you quickly find the constant ulong \r\n (Launcher Key) \r\n " +
+                "By: Wesley Vale, Frank Lucas.", "ProcessKeyGet", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+    }
+}
