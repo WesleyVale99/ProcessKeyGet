@@ -23,7 +23,7 @@ namespace ProcessKeyGet
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            btnCopy.Enabled =! btnCopy.Enabled;
+            btnCopy.Enabled = false;
             Process[] processlist = Process.GetProcesses();
             for (int i = 0; i < processlist.Length; i++)
                 processes.Add(processlist[i]);
@@ -61,7 +61,7 @@ namespace ProcessKeyGet
                     processes.RemoveAt(j);
                 }
             }
-            btnCopy.Enabled = !btnCopy.Enabled;
+            btnCopy.Enabled = true;
         }
         private static string GetCommandLine(int id)
         {
