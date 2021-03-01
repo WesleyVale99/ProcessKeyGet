@@ -82,7 +82,6 @@ namespace ProcessKeyGet
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(processes.Count.ToString());
             for (int i = 0; i < processes.Count; i++)
             {
                 Process process = processes[i];
@@ -90,7 +89,6 @@ namespace ProcessKeyGet
                 MessageBox.Show("Launcher Key Successfully copied.", "ProcessKeyGet", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-        public string OnlyNumber(string str) => new Regex(@"[^\d]").Replace(str, "");
         private void Button3_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Guide to help you quickly find the constant ulong \r\n (Launcher Key) \r\n " +
