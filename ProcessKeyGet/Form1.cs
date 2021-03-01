@@ -37,7 +37,7 @@ namespace ProcessKeyGet
             {
                 label1.Text = i.ToString();
                 Process process = processes[i];
-                listBox1.Items.Add($"PID: {process.Id} {process.ProcessName} {process.SessionId}");
+                listBox1.Items.Add($"PID: {process.Id} Name: {process.ProcessName} SessionId: {process.SessionId}");
                 if (process.ProcessName == "PointBlank")
                 {
                     MessageBox.Show("Point Blank found successfully.", "ProcessKeyGet", MessageBoxButtons.OK, MessageBoxIcon.Information);
