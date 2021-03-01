@@ -85,10 +85,10 @@ namespace ProcessKeyGet
             for (int i = 0; i < processes.Count; i++)
             {
                 Process process = processes[i];
-                string[] copy = GetCommandLine(process.Id).Split(' ');
+                string[] copy = GetCommandLine(process.Id).Split('"');
                 if(copy != null)
                 {
-                    Clipboard.SetText(copy[1]);
+                    Clipboard.SetText(copy[2]);
                     MessageBox.Show("Launcher Key Successfully copied.", "ProcessKeyGet", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
