@@ -47,7 +47,7 @@ namespace ProcessKeyGet
                 }
             }
             if(!seach)
-               MessageBox.Show("Point Blank not found!", "ProcessKeyGet", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               MessageBox.Show("Point Blank not found!", "ProcessKeyGet", MessageBoxButtons.OK, MessageBoxIcon.Error);
             label1.Text = "-";
         }
         private void OnlyPb()
