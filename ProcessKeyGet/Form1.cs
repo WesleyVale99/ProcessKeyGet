@@ -85,8 +85,12 @@ namespace ProcessKeyGet
             for (int i = 0; i < processes.Count; i++)
             {
                 Process process = processes[i];
-                Clipboard.SetText(GetCommandLine(process.Id));
-                MessageBox.Show("Launcher Key Successfully copied.", "ProcessKeyGet", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string copy = GetCommandLine(process.Id);
+                if(copy != null)
+                {
+                    Clipboard.SetText(copy);
+                    MessageBox.Show("Launcher Key Successfully copied.", "ProcessKeyGet", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
         private void Button3_Click(object sender, EventArgs e)
