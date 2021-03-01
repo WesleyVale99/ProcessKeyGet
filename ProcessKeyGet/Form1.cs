@@ -24,6 +24,11 @@ namespace ProcessKeyGet
         private void Button1_Click(object sender, EventArgs e)
         {
             btnCopy.Enabled = false;
+            bool seach = false;
+
+            processes.Clear();
+            listBox1.Items.Clear();
+
             Process[] processlist = Process.GetProcesses();
             for (int i = 0; i < processlist.Length; i++)
                 processes.Add(processlist[i]);
@@ -37,9 +42,12 @@ namespace ProcessKeyGet
                 {
                     MessageBox.Show("Point Blank found successfully.", "ProcessKeyGet", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     OnlyPb();
+                    seach = true;
                     break;
                 }
             }
+            if(!seach)
+               MessageBox.Show("Point Blank not found!", "ProcessKeyGet", MessageBoxButtons.OK, MessageBoxIcon.Information);
             label1.Text = "-";
         }
         private void OnlyPb()
